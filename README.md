@@ -1,34 +1,39 @@
 
 # OWASP ZAP vulnerability scan on DVWA
 
+Target: http://172.17.0.2/dvwa/index.php
+
+Tool: OWASP ZAP 2.13.0
+
+Environment: DVWA running on Locker Docker Network (172.17.0.2)
+
 ## 1. Objective
 
 The objective of this exercise was to perform a full web application vulnerability assessment on Damn Vulnerable Web Application (DVWA) using OWASP ZAP, identify potential security flaws, and document both findings and remediation steps.
 
 ## 2. Methodology / Workflow
 
-Step 1: Environment Preparation
+## Step 1: Environment Preparation
 
-. DVWA was deployed and verified running at:
-http://172.17.0.2/dvwa/index.php
+. DVWA was deployed and verified running at: `http://172.17.0.2/dvwa/index.php`
 
 . WASP ZAP launched in Standard Mode.
 
 . Browser traffic routed through ZAP using the default local proxy.
 
-Step 2: Target Setup
+## Step 2: Target Setup
 
 . DVWA URL added to the Sites list in ZAP.
 
 . Manual browsing performed to populate site structure and identify entry points.
 
-Step 3: Spidering (Crawling)
+## Step 3: Spidering (Crawling)
 
 . ZAP Spider executed to crawl hidden directories, parameters, and resources.
 
 . Results validated to ensure full coverage.
 
-Step 4: Active Scan
+## Step 4: Active Scan
 
 . Full Active Scan launched against DVWA.
 
@@ -52,17 +57,20 @@ Step 5: Results Review
 
 ## 3. Key Findings
 
-3.1 High-Risk Vulnerabilities
+## 3.1 High-Risk Vulnerabilities
 
-. Remote Code Execution – CVE-2012-1823
+. Remote Code Execution: `– CVE-2012-1823`
 
-. Source Code Disclosure – CVE-2012-1823
+. Source Code Disclosure: `– CVE-2012-1823`
 
 . Risk Level: High
 
 . Confidence: Medium
 
-. Affected URL: http://172.17.0.2/dvwa/index.php
+. Affected URL: 
+```bash
+http://172.17.0.2/dvwa/index.php
+```
 
 . Impact: Successful exploitation may lead to complete server takeover.
 
@@ -92,7 +100,7 @@ These weaknesses indicate insufficient hardening and lack of secure configuratio
 
 ## 4. Remediation Recommendations
 
-A. Remote Code Execution (CVE-2012-1823),
+A. Remote Code Execution: `(CVE-2012-1823)`
 
 . Upgrade PHP to a supported secure version.
 
@@ -110,11 +118,9 @@ B. Missing Security Headers
 
 . Implement these essential security headers:
 
-Header	Purpose
-
-I. Content-Security-Policy	Prevent XSS & data injection
-I. X-Frame-Options	Prevent clickjacking
-I. X-Content-Type-Options	Prevent MIME-type sniffing
+i. Content-Security-Policy	Prevent XSS & data injection
+ii. X-Frame-Options	Prevent clickjacking
+iii. X-Content-Type-Options	Prevent MIME-type sniffing
 
 . Regularly test headers using automated tools (e.g., securityheaders.com).
 
